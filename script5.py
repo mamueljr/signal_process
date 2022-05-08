@@ -60,7 +60,7 @@ plt.xlabel('Tiempo (seg)')
 ######################################################################
 #                         Análisis en Frecuencia
 #Especificar el número de muestras en la señal (siempre impar)
-N = 500
+N = 300
 #Vector de tiempos para la interpolación
 te = np.linspace(0,t[-1],N)
 #Aplica método de interpolación
@@ -122,13 +122,21 @@ for k in range(1,K):
     #Cuarto cuadrante
     if ak[k] >= 0 and bk[k] < 0:
         phik[k] = np.arctan(bk[k]/ak[k])
-
     #Múltiplos de la frecuencia fundamental
     fk[k] = k*fo
+    #Volver 0 el componente fk cuando su valor es 50 hz
+    if fk[k] == 50:
+        ck[k]=0
+        #fk[k]=0
+        ak[k]=0
+        bk[k]=0
+        phik[k]=0
+            
 
 #Gráfico
 plt.figure(4)
 plt.subplot(2,1,1)
+#Volver 0 el componente kf cuando su valor es 50 hz
 plt.stem(fk,ak)
 plt.title('Espectro de Magnitud para "ak y bk"')
 plt.subplot(2,1,2)
@@ -155,3 +163,9 @@ plt.xlabel('Frecuencia en Hertz')
 ################################################################
 #reconstruccion de la señal
 #basarse en el script 4
+
+
+ 
+
+
+
