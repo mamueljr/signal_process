@@ -164,6 +164,23 @@ plt.xlabel('Frecuencia en Hertz')
 #reconstruccion de la señal
 #basarse en el script 4
 
+#generar vector tamaño M que valla desde 0<= t <=2pi
+t=len(signal)
+#substituir L por M
+xr = np.zeros(M)
+# Evaluamos la serie de Fourier Rectangular
+# OJO quitar el valor de cero en la parte de bk para otra señal
+for k in range(1, K + 2):
+    xr = xr + ak[k + K + 1] * np.cos(2 * np.pi * k * fo * t) + bk[k + K + 1] * 0 * np.sin(2 * np.pi * k * fo * t)
+
+# Agregamos el offset a la señal
+xr = xr + a0
+
+# Gráfico
+plt.figure(4)
+plt.plot(t, xt, t, xr)
+plt.title('Señal Original y Reconstruida')
+plt.xlabel('Tiempo (seg)')
 
  
 
